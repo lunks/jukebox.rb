@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <title>jukebox.rb &mdash; <%= now_playing.title %></title>
+  <title>jukebox.rb &mdash; <%= now_playing.title unless now_playing.nil? %></title>
   <meta http-equiv="refresh" content="30" />
 <% end %>
 
@@ -15,7 +15,7 @@
       <% if now_playing.nil? %>
         idle
       <% else %>
-        <span style="float:left"><%= image_tag(now_playing.gravatar, :style => "padding-right: 1em") %></span>
+        <span style="float:left"><%-# image_tag(now_playing.gravatar, :style => "padding-right: 1em") %></span>
         <%= now_playing %>
       <% end %>
     </h2>
