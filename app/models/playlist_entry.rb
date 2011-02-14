@@ -1,4 +1,4 @@
-require 'tagfile/tagfile'
+require 'audioinfo'
 
 class PlaylistEntry < ActiveRecord::Base
   UNPLAYED = "unplayed"
@@ -59,7 +59,7 @@ class PlaylistEntry < ActiveRecord::Base
 
   begin # ID3 Tag Methods
     def id3
-      @id3 ||= TagFile::File.new(file_location)
+      @id3 ||= AudioInfo.open(file_location).tag
     end
 
     def title
@@ -84,3 +84,4 @@ class PlaylistEntry < ActiveRecord::Base
   end
 
 end
+
