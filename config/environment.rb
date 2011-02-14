@@ -26,7 +26,7 @@ Rails::Initializer.run do |config|
 
   # Add additional load paths for your own custom dirs
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
-  config.load_paths += %W( #{RAILS_ROOT}/app/domain
+  config.autoload_paths += %W( #{RAILS_ROOT}/app/domain
                            #{RAILS_ROOT}/app/plugins
                          )
 
