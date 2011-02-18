@@ -1,5 +1,3 @@
-require 'tagfile/tagfile'
-
 class PlaylistEntry < ActiveRecord::Base
   UNPLAYED = "unplayed"
   PLAYING = "playing"
@@ -30,13 +28,21 @@ class PlaylistEntry < ActiveRecord::Base
   end
 
   def self.create_random!(params = {})
-    users = params[:user] ? [params[:user]] : User.find_all_by_active(true).map(&:username)
-    filemask = File.join([JUKEBOX_MUSIC_ROOT, "{#{users.join(",")}}", "**", "*.{#{SUPPORTED_FORMATS.join(",")}}"].compact)
-    mp3_files = Dir[filemask]
-    return if mp3_files.empty?
-
-    srand(Time.now.to_i)
-    (params[:number_to_create] || 1).to_i.times do
+    users = []
+    Dir["#{JUKEBOX_MUSIC_ROOT}/*"].each do |file|
+      File.directory? file or next
+      users << file
+    end
+    
+    users.each do |user_path|
+      filemask = File.join(user_path, "**", "*.mp3")
+      mp3_files = []
+      Dir[filemask].each do |file|
+        next if file.nil?
+        next if File.directory? file
+        mp3_files << file
+      end
+      next if mp3_files.empty?
       create! :file_location => mp3_files[rand(mp3_files.size)]
     end
   end
@@ -59,23 +65,25 @@ class PlaylistEntry < ActiveRecord::Base
 
   begin # ID3 Tag Methods
     def id3
-      @id3 ||= TagFile::File.new(file_location)
+      require 'audioinfo'
+      @id3.nil? and AudioInfo.open(file_location) { |info| @id3 = info.to_h }
+      return @id3
     end
 
     def title
-      id3.title
+      id3['title']
     end
 
     def artist
-      id3.artist
+      id3['artist']
     end
 
     def album
-      id3.album
+      id3['album']
     end
 
     def track_number
-      id3.track
+      id3['track']
     end
 
     def to_s
