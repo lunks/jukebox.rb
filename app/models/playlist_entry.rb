@@ -87,7 +87,7 @@ class PlaylistEntry < ActiveRecord::Base
     end
 
     def to_s
-      "#{artist} - <span style='font-style: italic; vertical-align: top'>#{title}</span>"
+      "#{file_location} / #{artist} - <span style='font-style: italic; vertical-align: top'>#{title}</span>"
     end
   end
 
