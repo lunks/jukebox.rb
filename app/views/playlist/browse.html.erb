@@ -42,8 +42,8 @@
     filepath = File.join(subpath, filename)
     next unless ["mp3", "m4a"].include?(filename.split(".").last)
     begin
-      id3 = AudioInfo.open(File.join(JUKEBOX_MUSIC_ROOT, filepath)).tag
-    rescue TagFile::BadTag
+      id3 = AudioInfo.open(File.join(JUKEBOX_MUSIC_ROOT, filepath))
+    rescue "Wrong tag!"
       next
     end
     next if id3.title.nil? || id3.title == ""
