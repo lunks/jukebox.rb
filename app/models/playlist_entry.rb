@@ -64,25 +64,29 @@ class PlaylistEntry < ActiveRecord::Base
   end
 
   begin # ID3 Tag Methods
-    def id3
+    def id3_tag
       require 'audioinfo'
-      @id3.nil? and AudioInfo.open(file_location) { |info| @id3 = info.to_h }
+      @id3 ||= AudioInfo.open(file_location) { |info| info.to_h }
     end
 
+    def tag_propertie name
+      id3_tag[name.to_s]
+    end
+    
     def title
-      id3['title']
+      tag_propertie :title
     end
 
     def artist
-      id3['artist']
+      tag_propertie :artist
     end
 
     def album
-      id3['album']
+      tag_propertie :album
     end
 
     def track_number
-      id3['track']
+      tag_propertie :track_number
     end
 
     def to_s
