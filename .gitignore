@@ -12,3 +12,4 @@ launch
 .rvmrc
 .bundle
 db/*.sqlite3
+*.swp
