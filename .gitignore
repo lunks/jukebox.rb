@@ -1,3 +1,4 @@
+log/*.log
 music
 .DS_Store
 /tmp
@@ -10,3 +11,4 @@ launch
 /public/javascripts/tracks.js
 .rvmrc
 .bundle
+db/*.sqlite3

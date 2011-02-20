@@ -67,7 +67,6 @@ class PlaylistEntry < ActiveRecord::Base
     def id3
       require 'audioinfo'
       @id3.nil? and AudioInfo.open(file_location) { |info| @id3 = info.to_h }
-      return @id3
     end
 
     def title
@@ -92,3 +91,4 @@ class PlaylistEntry < ActiveRecord::Base
   end
 
 end
+

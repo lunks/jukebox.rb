@@ -1,5 +1,5 @@
 <% content_for :head do %>
-  <title>jukebox.rb &mdash; <%#= now_playing.title %></title>
+  <title>jukebox.rb &mdash; <%= now_playing.title unless now_playing.nil? %></title>
   <meta http-equiv="refresh" content="30" />
 <% end %>
 
