@@ -1,8 +1,8 @@
+.bundle
+db/*.sqlite3
 log/*.log
-music
+tmp/
 .DS_Store
-/tmp
-/db/schema.rb
 /snippets
 /temp_out
 nohup.out
@@ -10,6 +10,6 @@ CocoaJukeboxPlayer
 launch
 /public/javascripts/tracks.js
 .rvmrc
-.bundle
-db/*.sqlite3
 *.swp
+.AppleDouble
+

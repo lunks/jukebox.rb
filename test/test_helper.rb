@@ -1,30 +1,13 @@
 ENV["RAILS_ENV"] = "test"
-$LOAD_PATH << File.dirname(__FILE__) + "/../vendor/dust-0.1.6/lib"
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-require 'test_help'
-require 'dust'
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
 
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
+  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
+  #
+  # Note: You'll currently still have to declare fixtures explicitly in integration tests
+  # -- they do not yet inherit this setting
+  fixtures :all
 
-  def class_for(mod)
-    Class.new { include mod.to_s.classify.constantize }
-  end
-
-  def assert_true(actual)
-    assert_equal true, actual
-  end
-
-  def assert_non_true(actual)
-    assert_true !actual
-  end
-
-  def assert_false(actual)
-    assert_equal false, actual
-  end
-
-  def assert_non_false(actual)
-    assert_false !actual
-  end
-
+  # Add more helper methods to be used by all tests here...
 end
-

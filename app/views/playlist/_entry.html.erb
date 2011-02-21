@@ -1,6 +1,6 @@
 <div>
-  <%#= image_tag(entry.gravatar(25), :style => "border: 1; vertical-align: center; width: 25px;") %>
   <span>
-    <%= entry %> <a style="color: gray; text-decoration: none;" href="<%= playlist_delete_url({:id => entry.id}) %>">delete</a>
+    <%=raw entry %> <a style="color: gray; text-decoration: none;" href="<%= playlist_delete_url({:id => entry.id}) %>">delete</a>
   </span>
 </div>
+

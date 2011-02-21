@@ -1,23 +1,20 @@
-require 'find'
-
 class PlaylistController < ApplicationController
 
   def add_random
     PlaylistEntry.create_random!(:number_to_create => params[:number_to_create] || 1)
-
-    redirect_to playlist_url
+    redirect_to root_url
   end
 
   def add_track
     PlaylistEntry.create! :file_location => File.join(JUKEBOX_MUSIC_ROOT, params[:filepath])
 
-    redirect_to playlist_url
+    redirect_to root_url
   end
 
   def add_for
     PlaylistEntry.create_random!(:user => params[:name])
 
-    redirect_to playlist_url
+    redirect_to root_url
   end
 
   def browse
@@ -26,32 +23,34 @@ class PlaylistController < ApplicationController
   def delete
     PlaylistEntry.delete(params[:id])
 
-    redirect_to playlist_url
+    redirect_to root_url
   end
 
   def pause
     PlayerStatus.pause
-
-    redirect_to playlist_url
+    redirect_to root_url
   end
 
   def play
     PlayerStatus.play
 
-    redirect_to playlist_url
+    redirect_to root_url
   end
 
   def search
   end
 
+  def index
+  end
+
   def skip
     PlaylistEntry.skip(params[:id])
 
-    redirect_to playlist_url
+    redirect_to root_url
   end
 
   def status
-    render :text => PlayerStatus.status
+
   end
 
   def skip_requested
@@ -72,19 +71,6 @@ class PlaylistController < ApplicationController
     render :text => filename
   end
 
-  def next_hammertime
-    text = ""
-    if hammertime = Hammertime.find(:first)
-      text = [hammertime.snippet.file_location,
-              hammertime.snippet.start_time,
-              hammertime.snippet.end_time,
-              hammertime.after].join('|')
-      Hammertime.delete(hammertime)
-    end
-
-    render :text => text
-  end
-
   def toggle_continuous_play
     PlayerStatus.toggle_continuous_play
 
@@ -92,3 +78,4 @@ class PlaylistController < ApplicationController
   end
 
 end
+

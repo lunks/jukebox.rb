@@ -12,11 +12,11 @@ class PlaylistEntry < ActiveRecord::Base
   end
 
   def self.find_ready_to_play
-    find(:first, :conditions => {:status => UNPLAYED}, :order => :id)
+    where(:status => UNPLAYED).order(:id).first
   end
 
   def self.find_all_ready_to_play
-    find(:all, :conditions => {:status => UNPLAYED}, :order => :id)
+    where(:status => UNPLAYED).order(:id)
   end
 
   def self.find_next_track_to_play
@@ -33,7 +33,7 @@ class PlaylistEntry < ActiveRecord::Base
       File.directory? file or next
       users << file
     end
-    
+
     users.each do |user_path|
       filemask = File.join(user_path, "**", "*.mp3")
       mp3_files = []
@@ -59,34 +59,31 @@ class PlaylistEntry < ActiveRecord::Base
     file_location.sub(JUKEBOX_MUSIC_ROOT, "").split('/')[1].titlecase
   end
 
-  def gravatar(size = nil)
-    User.gravatar_for(contributor, size = nil)
-  end
 
   begin # ID3 Tag Methods
     def id3_tag
       require 'audioinfo'
-      @id3 ||= AudioInfo.open(file_location) { |info| info.to_h }
+      @id3 ||= AudioInfo.open(file_location)
     end
 
-    def tag_propertie name
-      id3_tag[name.to_s]
+    def tag_property name
+      id3_tag.send name if name.is_a? Symbol
     end
-    
+
     def title
-      tag_propertie :title
+      tag_property :title
     end
 
     def artist
-      tag_propertie :artist
+      tag_property :artist
     end
 
     def album
-      tag_propertie :album
+      tag_property :album
     end
 
     def track_number
-      tag_propertie :track_number
+      tag_property :track_number
     end
 
     def to_s
