@@ -9,6 +9,7 @@ JukeboxRb::Application.routes.draw do
 
   match 'playlist_toogle_continuous_play' => 'playlist#toogle_continuous_play', :as => :playlist_toggle_continuous_play
   match 'playlist_pause' => 'playlist#pause', :as => :playlist_pause
+  match 'playlist_play' => 'playlist#play', :as => :playlist_play
   match 'playlist_add_random(/:number_to_create)' => 'playlist#add_random', :as => :playlist_add_random
   match 'browse' => 'playlist#browse', :as => :browse
   match 'playlist_delete' => 'playlist#delete', :as => :playlist_delete
