@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
-require 'taglib'
 require "erb"
 include ERB::Util
 

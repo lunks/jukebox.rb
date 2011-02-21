@@ -1,6 +1,5 @@
+<%= link_to 'Back to playlist', playlist_path %>
 <%
-  require 'audioinfo'
-
   subpath = params[:subpath] || ""
   path = File.join(JUKEBOX_MUSIC_ROOT, subpath)
 %>
@@ -48,7 +47,7 @@
     end
     next if id3.title.nil? || id3.title == ""
 %>
-<%= link_to "#{id3.title}", playlist_add_track_path(:filepath => filepath), :alt => filepath %><br />
+<%= link_to "#{filename}", playlist_add_track_path(:filepath => filepath), :alt => filepath %><br />
 <%
   end
 %>

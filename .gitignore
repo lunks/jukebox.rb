@@ -9,5 +9,7 @@ nohup.out
 CocoaJukeboxPlayer
 launch
 /public/javascripts/tracks.js
-.AppleDouble
+.rvmrc
+.bundle
 db/*.sqlite3
+*.swp

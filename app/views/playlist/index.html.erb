@@ -4,18 +4,18 @@
 <% end %>
 
 <div class="container">
-  <div class="span-24">
+  <div>
     <h1>
       Jukebox.rb
     </h1>
     <hr>
   </div>
-  <div class="span-24">
+  <div>
     <h2>
       <% if now_playing.nil? %>
         idle
       <% else %>
-        <span style="float:left"><%-# image_tag(now_playing.gravatar, :style => "padding-right: 1em") %></span>
+        <span><%#= image_tag(now_playing.gravatar, :style => "padding-right: 1em") %></span>
         <%= now_playing %>
       <% end %>
     </h2>
@@ -39,16 +39,16 @@
       <a href="<%= user_show_url %>">Users</a>
     </p>
   </div>
-  <div class="span-24" style="visibility: hidden">
+  <div style="visibility: hidden">
     <%= check_box_tag "continuous_play", "1", continuous_play? %> Contintuous Play
     <%= observe_field "continuous_play", :method => :get, :url => playlist_toggle_continuous_play_url %>
   </div>
-  <div class="span-24">
-    <%= render :partial => "search" %>
+  <div>
+    <%#= render :partial => "search" %>
   </div>
-  <div class="span-24">
+  <div>
     <hr>
-    <h3>Up next</h3>
+    <h3>Playlist</h3>
     <%= render :partial => "entry", :collection => ready_to_play %>
     <hr>
   </div>
