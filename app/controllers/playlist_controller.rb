@@ -1,13 +1,15 @@
 class PlaylistController < ApplicationController
 
-   before_filter  :redirect_to_root, :except=> [:browse, :search, :index, :status, :skip_requested, :toggle_continuous_play, :next_hammertime]
+#   before_filter  :redirect_to_root, :except=> [:browse, :search, :index, :status, :skip_requested, :toggle_continuous_play, :next_hammertime]
+#
+#   def redirect_to_root
+#     redirect_to (:back) and return
+#   end
 
-   def redirect_to_root
-     redirect_to (:back) and return
-   end
 
   def add_random
     PlaylistEntry.create_random!(:number_to_create => params[:number_to_create] || 1)
+    render :action => :index
   end
 
   def add_track
@@ -19,22 +21,24 @@ class PlaylistController < ApplicationController
   end
 
   def browse
+
   end
 
   def delete
     PlaylistEntry.delete(params[:id])
-
+    render :action => :index
   end
 
   def pause
     PlayerStatus.pause
     #redirect_to root_url
+    render :action => :index
   end
 
   def play
     PlayerStatus.play
-
     #redirect_to root_url
+    render :action => :index
   end
 
   def search
@@ -45,7 +49,7 @@ class PlaylistController < ApplicationController
 
   def skip
     PlaylistEntry.skip(params[:id])
-
+    render :action => :index
   end
 
   def status
