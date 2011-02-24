@@ -4,9 +4,7 @@ class PlaylistEntry < ActiveRecord::Base
 
   SUPPORTED_FORMATS = %w[
     mp3
-    m4a
-    ogg
-    flac
+
   ]
 
   def self.playing_track

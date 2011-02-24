@@ -26,7 +26,7 @@
       <% end %>
       <% if now_playing %>
       |
-      <a href="<%= playlist_skip_url(now_playing.id) %>">Skip Current Track</a>
+      <a href="<%= playlist_skip_url({:id => now_playing.id}) %>">Skip Current Track</a>
       <% end %>
       |
       <a href="<%= playlist_add_random_url %>">Add a random track</a>
@@ -37,7 +37,7 @@
     </p>
   </div>
   <div style="visibility: hidden">
-    <%= check_box_tag "continuous_play", "1", continuous_play? %> Contintuous Play
+    <%= check_box_tag "continuous_play", "1", continuous_play? %> Continuous Play
     <%= observe_field "continuous_play", :method => :get, :url => playlist_toggle_continuous_play_url %>
   </div>
   <div>
